@@ -654,6 +654,39 @@ myApp.controller('jobObjectiveController', ['$scope', '$http', '$uibModal', 'Emp
     }
 
 
+    //Remove Objective
+    $scope.removeObjective = function (objectiveId) {
+        swal({
+            title: "Warning!",
+            text: "Are You sure to remove Objective?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, I do",
+            cancelButtonText: "No, cancel!",
+            closeOnConfirm: false,
+            closeOnCancel: false,
+            showLoaderOnConfirm: true
+        }, function (isConfirm) {
+            if (isConfirm) {
+                EmployeeDataServices.removeObjective(objectiveId).then(function (response) {
+                    swal({
+                        title: 'Success',
+                        text: 'Your successfully remove the objective',
+                        type: 'success',
+                        closeOnConfirm: false
+                    }, function (isConfirm) {
+                        $route.reload();
+                        swal.close();
+                    })
+                }, function (error) {
+                    swal('Error', error.data.message, 'error');
+                })
+            } else {
+                swal.close();
+            }
+        });
+    }
+
     //Add the Objective
     $scope.AddObjective = function (data) {
         $scope.AddButton = 'Saving...';
@@ -3176,6 +3209,10 @@ myApp.factory('EmployeeDataServices', ['$http', 'serviceBasePath', function ($ht
 
     fac.getEmployeeList = function (data) {
         return $http.get(serviceBasePath + '/api/Employees/EmployeesData/GetOtherEmployeesList');
+    }
+
+    fac.removeObjective = function (objectiveId) {
+        return $http.get(serviceBasePath + '/api/Employees/JobObjectives/DeleteObjective/'+ objectiveId);
     }
 
     fac.getOtherObjectiveList = function () {
