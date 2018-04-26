@@ -4,7 +4,8 @@ var AuthApp = angular.module('AuthApp', ['LocalStorageModule']);
 
 
 // Global Variable for base path
-AuthApp.constant('serviceBasePath', 'http://localhost:81');
+//AuthApp.constant('serviceBasePath', 'http://localhost:81');
+AuthApp.constant('serviceBasePath', 'http://localhost:51646');
 
 AuthApp.factory('AuthData', ['localStorageService', function (localStorageService) {
     var authServiceFactory = {};

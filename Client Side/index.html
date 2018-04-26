@@ -189,7 +189,16 @@
                           <li><a href="#/TotalNumberofEmployee">Total Employee</a></li>
                       </ul>
                   </li>
-
+                  <li class="sub-menu" ng-show="Role=='Department Head'||Role=='Super Admin'">
+                      <a href="javascript:;">
+                          <i class="fa fa-cogs"></i>
+                          <span>Report</span>
+                          <div class="pull-right"><i class="fa fa-angle-double-down" aria-hidden="true"></i></div>
+                      </a>
+                      <ul class="sub">
+                          <li><a href="#/SelfAppraisalReport">Self Appraisal Report</a></li>
+                      </ul>
+                  </li>
                   <li class="sub-menu">
                       <a href="javascript:;" >
                           <i class="fa fa-wrench" aria-hidden="true"></i>
@@ -238,9 +247,9 @@
     <script src="content/angular-local-storage.js"></script>
     <script src="content/AngularJS Library/angular-datepicker.min.js"></script>
 
-    <script src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1','packages':['corechart','orgchart']}]}"></script>
+    <!--<script src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1','packages':['corechart','orgchart']}]}"></script>
     <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
-    <script src="https://cdn.zingchart.com/angular/zingchart-angularjs.js"></script>
+    <script src="https://cdn.zingchart.com/angular/zingchart-angularjs.js"></script>-->
       
       <!--  Pie Chart -->
       <script src="content/PieChart js/d3.js"></script>
