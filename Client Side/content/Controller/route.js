@@ -2950,97 +2950,103 @@ myApp.controller('totalOrganogram', ['$scope', 'HOBUdataServices', 'OtherDataSer
 
 }])
 
-myApp.controller('totalEmployee', ['$scope', 'OtherDataServices', '$uibModal', '$route', function ($scope, OtherDataServices, $uibModal, $route) {
-    
-    $scope.loadData = function () {
-        OtherDataServices.getEmployeeNumbers().then(function (response) {
-            $scope.getEmployeeNumbersList = response.data;
-            $scope.TotalNumbers = alasql('VALUE OF SELECT SUM(numberOfEmployees) FROM ?', [$scope.getEmployeeNumbersList]);
-        })
+myApp.controller('totalEmployee',
+    [
+        '$scope', 'OtherDataServices', '$uibModal', '$route', function($scope, OtherDataServices, $uibModal, $route) {
 
-        OtherDataServices.getDepartmentList().then(function (response) {
-            $scope.DepartmentList = response.data;
-        })
-    }
+            $scope.loadData = function() {
+                OtherDataServices.getEmployeeNumbers().then(function(response) {
+                    $scope.getEmployeeNumbersList = response.data;
+                    $scope.TotalNumbers = alasql('VALUE OF SELECT SUM(numberOfEmployees) FROM ?',
+                        [$scope.getEmployeeNumbersList]);
+                })
 
-    $scope.buttonProcess = function () {
-        $scope.isProcessing = false;
-        $scope.addButton='Add',
-        $scope.updateButton='Update'
-    }
+                OtherDataServices.getDepartmentList().then(function(response) {
+                    $scope.DepartmentList = response.data;
+                })
+            }
 
-    $scope.loadData();
-    $scope.buttonProcess();
+            $scope.buttonProcess = function() {
+                $scope.isProcessing = false;
+                $scope.addButton = 'Add',
+                    $scope.updateButton = 'Update'
+            }
 
-    $scope.addEmployeeNumbers = function () {
-        var modalInstance = $uibModal.open({
-            templateUrl: '\View/TotalEmployee/AddNumbers.html',
-            controller: 'totalEmployee',
-            scope: $scope,
-            size: 'md',
-        });
-    }
-
-    $scope.updateEmployeeNumber = function (data) {
-        $scope.updateNumber = {};
-        angular.copy(data, $scope.updateNumber);
-
-        var modalInstance = $uibModal.open({
-            templateUrl: '\View/TotalEmployee/UpdateNumbers.html',
-            controller: 'totalEmployee',
-            scope: $scope,
-            size: 'md',
-        });
-    }
-
-    $scope.storeEmployeeNumber = function (invalid,data) {
-        $scope.addButton = 'Adding...';
-        $scope.isProcessing = true;
-
-        if (!invalid) {
-
-            OtherDataServices.addEmployeeNumbers(data).then(function (response) {
-                
-                swal('Success', response.data, 'success');
-                $route.reload();
-
-            }, function (error) {
-                swal('Error', error.data.message, 'error');
-                $scope.buttonProcess();
-            })
-
-        } else {
+            $scope.loadData();
             $scope.buttonProcess();
+
+            $scope.addEmployeeNumbers = function() {
+                var modalInstance = $uibModal.open({
+                    templateUrl: '\View/TotalEmployee/AddNumbers.html',
+                    controller: 'totalEmployee',
+                    scope: $scope,
+                    size: 'md',
+                });
+            }
+
+            $scope.updateEmployeeNumber = function(data) {
+                $scope.updateNumber = {};
+                angular.copy(data, $scope.updateNumber);
+
+                var modalInstance = $uibModal.open({
+                    templateUrl: '\View/TotalEmployee/UpdateNumbers.html',
+                    controller: 'totalEmployee',
+                    scope: $scope,
+                    size: 'md',
+                });
+            }
+
+            $scope.storeEmployeeNumber = function(invalid, data) {
+                $scope.addButton = 'Adding...';
+                $scope.isProcessing = true;
+
+                if (!invalid) {
+
+                    OtherDataServices.addEmployeeNumbers(data).then(function(response) {
+
+                            swal('Success', response.data, 'success');
+                            $route.reload();
+
+                        },
+                        function(error) {
+                            swal('Error', error.data.message, 'error');
+                            $scope.buttonProcess();
+                        })
+
+                } else {
+                    $scope.buttonProcess();
+                }
+            }
+
+            $scope.updatingEmployeeNumbers = function(invalid, data) {
+                $scope.updateButton = 'Updating...';
+                $scope.isProcessing = true;
+
+                if (!invalid) {
+
+                    OtherDataServices.updateEmployeeNumbers(data).then(function(response) {
+
+                            swal('Success', response.data, 'success');
+                            $route.reload();
+
+                        },
+                        function(error) {
+                            swal('Error', error.data.message, 'error');
+                            $scope.buttonProcess();
+                        })
+
+                } else {
+                    $scope.buttonProcess();
+                }
+            }
+
         }
-    }
-
-    $scope.updatingEmployeeNumbers = function (invalid, data) {
-        $scope.updateButton = 'Updating...';
-        $scope.isProcessing = true;
-
-        if (!invalid) {
-
-            OtherDataServices.updateEmployeeNumbers(data).then(function (response) {
-
-                swal('Success', response.data, 'success');
-                $route.reload();
-
-            }, function (error) {
-                swal('Error', error.data.message, 'error');
-                $scope.buttonProcess();
-            })
-
-        } else {
-            $scope.buttonProcess();
-        }
-    }
-
-}])
+    ]);
 
 
 myApp.controller('reportController', ['$scope', 'AdmindataServices', '$uibModal', '$route', 'CreatePDF', function ($scope, AdmindataServices, $uibModal, $route, CreatePDF) {
     $scope.init = function () {
-        $scope.button = 'Self Appraisal Report Download';
+        $scope.button = 'Unsubmitted Employee\'s Report Download';
         $scope.isProcessign = false;
     }
 
@@ -3052,7 +3058,7 @@ myApp.controller('reportController', ['$scope', 'AdmindataServices', '$uibModal'
         AdmindataServices.GetSelfAppraisalReport().then(function (response) {
             $scope.init();
             console.log(response.data)
-            pdfMake.createPdf(CreatePDF.GenerateSelfAppraisalReport(response.data)).download("employeelist(self-appraisal-not-submitted).pdf");
+            pdfMake.createPdf(CreatePDF.GenerateSelfAppraisalReport(response.data)).download("employeelist(job-objective-not-submitted).pdf");
         },function (error) {
             swal("Error", error.data.message, "error");
             $scope.init();
@@ -5706,7 +5712,7 @@ myApp.factory('CreatePDF', ['$filter',function ($filter) {
 
         var i = 0;
         employeeList.forEach(function (employee) {
-            var singleRow = [i, employee.employeeNumber, employee.employeeName, employee.designation, employee.department, employee.section, ''];
+            var singleRow = [i, employee.employeeNumber, employee.employeeName, employee.designation, employee.department, employee.section, employee.reportToName];
             employeeListTemp.push(singleRow);
             i++;
         });
@@ -5721,7 +5727,7 @@ myApp.factory('CreatePDF', ['$filter',function ($filter) {
                     margin: [0, 0, 0, 10]
                 },
                 {
-                    text: 'List of Employees (Self Appraisal Not Submitted)',
+                    text: 'List of Employees (Job Objective Not Submitted)',
                     alignment: 'center',
                     style: 'header',
                     decoration: 'underline',
