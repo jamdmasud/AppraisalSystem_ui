@@ -103,6 +103,7 @@
                     <button type="button" class="btn btn-info" ng-click="ReportPrint(objective)"><i class="fa fa-print"></i> Print</button>
                     <button type="button" class="btn btn-default" ng-click="$dismiss()"><i class="fa fa-times"></i> Cancel</button>
                     <button ng-if="!objective.isObjectiveApproved" type="button" class="btn btn-success" ng-click="ApproveObjective(objective.objectiveId)"><i class="fa fa-check"></i> Have Read</button>
+                    <button ng-if="objective.isObjectiveApproved" type="button" class="btn btn-success" ng-click="DisapproveObjective(objective.objectiveId)"><i class="fa fa-check"></i> Allow To Edit</button>
                 </div>
             </div>
         </form>

@@ -27,12 +27,13 @@
                                 <div class="form-group">
                                     <label for="appraisal" class="text-bold text-primary">Self Appraisal Score: </label>
                                     <select class="form-control" name="appra{{$index}}" ng-model="item.selfAppraisal" ng-options="o.id as o.value for o in selection" required>
-                                        <option value="">Select a Self Appraisal</option>
+                                        <option value="{{item.selfAppraisal}}">Select a Self Appraisal</option>
                                     </select>
                                     <div ng-messages="selfAppraisal['appra'+$index].$error" ng-if="selfAppraisal.$submitted" class="text-danger">
                                         <div ng-message="required"><i class="fa fa-times-circle"></i> Self Appraisal is required</div>
                                     </div>
                                 </div>
+                                <pre>{{}}</pre>
                             </div>
                             <div class="col-lg-9">
                                 <div class="form-group">
@@ -67,6 +68,7 @@
                                     <div class="form-group">
                                         <label for="comment" class="text-bold text-primary">Personal Development Plan: </label>
                                         <textarea id="comment" ng-model="OverAll.personalDevelopmentPlan" class="form-control"></textarea>
+                                       
                                     </div>
                                 </div>
                             </div>

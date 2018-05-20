@@ -542,7 +542,7 @@ myApp.controller('jobDesController', ['$scope', '$uibModal', 'Cascading', '$wind
                 $scope.$dismiss();
                 $route.reload();
             }, function (error) {
-                swal('Error', 'Something is error.Try again', 'error');
+                swal('Error', error.data.message, 'error');
                 $scope.init();
             })
         } else {
@@ -765,10 +765,11 @@ myApp.controller('selfAppraisalController', ['$scope', '$uibModal', 'EmployeeObj
         EmployeeDataServices.getMyAppraisalObjective().then(function (response) {
             if (response.data != null) {
                 $scope.ObjectiveList = response.data;
-                $scope.Objectives = $scope.ObjectiveList.objectiveSub;
+                $scope.Objectives = $scope.ObjectiveList.objectiveSub; 
             } else
                 $scope.ObjectiveList = null;
         })
+       
     }
 
     $scope.getSelfAppraisalList();
@@ -779,8 +780,11 @@ myApp.controller('selfAppraisalController', ['$scope', '$uibModal', 'EmployeeObj
             id: $scope.ObjectiveList.id,
             employeeId: $scope.ObjectiveList.employeeId,
             overallScore: $scope.ObjectiveList.overallScore,
-            overallComment: $scope.ObjectiveList.overallComment
+            overallComment: $scope.ObjectiveList.overallComment,
+            personalDevelopmentPlan: $scope.ObjectiveList.personalDevelopmentPlan
         }
+
+        console.log($scope.ObjectiveList);
         var modalInstance = $uibModal.open({
             templateUrl: '\View/Modal View/addAppraisalModel.html',
             controller: 'selfAppraisalController',
@@ -796,7 +800,7 @@ myApp.controller('selfAppraisalController', ['$scope', '$uibModal', 'EmployeeObj
     $scope.AddSelfAppraisal = function (data) {
         $scope.addButton = 'Submitting..';
         $scope.isProcess = true;
-
+        
         var listObjective = [];
 
         angular.forEach($scope.Objectives, function (objective) {
@@ -815,7 +819,7 @@ myApp.controller('selfAppraisalController', ['$scope', '$uibModal', 'EmployeeObj
             PersonalDevelopmentPlan: $scope.OverAll.personalDevelopmentPlan,
             ObjectiveSub: listObjective
         }
-
+        
         if (!data) {
             EmployeeDataServices.postSelfAppraisal(SelfAppraisal).then(function (response) {
                 swal('Success',response.data, 'success');
@@ -1037,7 +1041,7 @@ myApp.controller('othersObjectiveListController', ['$scope', '$uibModal', 'Emplo
                 EmployeeDataServices.isApproveObjective(ObjectiveId).then(function (response) {
                     swal({
                         title: 'Success',
-                        text: 'The Objective is approve',
+                        text: 'The Objective is approved',
                         type: 'success',
                         closeOnConfirm: false
                     }, function (isConfirm) {
@@ -1045,7 +1049,39 @@ myApp.controller('othersObjectiveListController', ['$scope', '$uibModal', 'Emplo
                         swal.close();
                     })
                 }, function (error) {
-                    swal('Error', error.data.message, 'error');
+                    swal('Error', error.data, 'error');
+                })
+            } else {
+                swal.close();
+            }
+        });
+    }
+
+    $scope.DisapproveObjective = function (objectiveId) {
+        swal({
+            title: "Warning!",
+            text: "Are You sure to disapprove this Objective?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, I approve",
+            cancelButtonText: "No, cancel!",
+            closeOnConfirm: false,
+            closeOnCancel: false,
+            showLoaderOnConfirm: true
+        }, function (isConfirm) {
+            if (isConfirm) {
+                EmployeeDataServices.disapproveObjective(objectiveId).then(function (response) {
+                    swal({
+                        title: 'Success',
+                        text: response.data,
+                        type: 'success',
+                        closeOnConfirm: false
+                    }, function (isConfirm) {
+                        $route.reload();
+                        swal.close();
+                    })
+                }, function (error) {
+                    swal('Error', error.data, 'error');
                 })
             } else {
                 swal.close();
@@ -1202,6 +1238,22 @@ myApp.controller('myEmployeeController', ['$scope', '$http', '$uibModal', 'Emplo
         });
     }
 
+    $scope.AllowUpdateJobDescription = function (employeeId) {
+        EmployeeDataServices.allowUpdateJobDescription(employeeId).then(function (response) {
+            swal({
+                title: 'Success',
+                text: response.data.message,
+                type: 'success',
+                closeOnConfirm: false
+            }, function (isConfirm) {
+                $route.reload();
+                swal.close();
+            })
+        }, function (error) {
+            swal('Error', error.data.message, 'error');
+        })
+    }
+
     $scope.ViewEmployeeByParams = function () {
         var EmployeeId = $routeParams.id;
         if (EmployeeId) {
@@ -1252,7 +1304,7 @@ myApp.controller('performanceController', ['$scope', '$uibModal', 'HOBUServices'
 
     $scope.initi = function () {
         HOBUdataServices.getEmployeeListPerformanceAppraisal('EmloyeeId').then(function (response) {
-            $scope.Employees = response.data;
+            $scope.Employees = response.data; 
         })
 
         HOBUdataServices.getObjectiveListForAppraisal().then(function (response) {
@@ -1350,6 +1402,7 @@ myApp.controller('performanceController', ['$scope', '$uibModal', 'HOBUServices'
 
     $scope.viewPerformanceAppraisal = function (data) {
         $scope.info = data;
+        console.log(data);
         $scope.Objectives = ($filter('filter')($scope.ObjectiveList, { EmployeeId: data.EmployeeId }));
         var modalInstance = $uibModal.open({
             templateUrl: '\View/SubAdmin_Modal/ViewPerformanceAppraisal.html',
@@ -1381,7 +1434,7 @@ myApp.controller('performanceController', ['$scope', '$uibModal', 'HOBUServices'
                 $scope.$dismiss();
                 $route.reload();
             }, function (error) {
-                swal('Error', error.data.message, 'error');
+                swal('Error', error.data, 'error');
                 $scope.button();
             })
         } else {
@@ -1403,6 +1456,39 @@ myApp.controller('performanceController', ['$scope', '$uibModal', 'HOBUServices'
 
     $scope.GenerateAllEmployeeReport = function (data) {
         HOBUdataServices.GeneratePerformaceAppraissalList(data);
+    }
+
+    $scope.AllowToEdit = function (employeeId) {
+       // HOBUdataServices.AllowToEdit()
+        swal({
+            title: "Warning!",
+            text: "Are You sure to allow to edit self appraisal?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, I agree",
+            cancelButtonText: "No, cancel!",
+            closeOnConfirm: false,
+            closeOnCancel: false,
+            showLoaderOnConfirm: true
+        }, function (isConfirm) {
+            if (isConfirm) {
+                HOBUdataServices.allowToEdit(employeeId).then(function (response) {
+                    swal({
+                        title: 'Success',
+                        text: response.data,
+                        type: 'success',
+                        closeOnConfirm: false
+                    }, function (isConfirm) {
+                        $route.reload();
+                        swal.close();
+                    })
+                }, function (error) {
+                    swal('Error', error.data, 'error');
+                })
+            } else {
+                swal.close();
+            }
+        });
     }
 
 }])
@@ -3275,6 +3361,10 @@ myApp.factory('EmployeeDataServices', ['$http', 'serviceBasePath', function ($ht
         return $http.get(serviceBasePath + '/api/Employees/EmployeesData/GetEmployeeById/' + data);
     }
 
+    fac.allowUpdateJobDescription = function (employeeId) {
+        return $http.get(serviceBasePath + '/api/Admin/AdminActivities/AllowUpdateJobDescriptionByHOBU/' + employeeId);
+    }
+
     fac.GenerateMyObjectiveList = function (data) {
 
         var excelStyle = {
@@ -3502,6 +3592,10 @@ myApp.factory('EmployeeDataServices', ['$http', 'serviceBasePath', function ($ht
 
     fac.isApproveObjective = function (objectiveId) {
         return $http.get(serviceBasePath + '/api/Admin/AdminActivities/ApproveObjectiveByReportee/'+objectiveId);
+    }
+
+    fac.disapproveObjective = function (objectiveId) {
+        return $http.get(serviceBasePath + '/api/Admin/AdminActivities/DisapproveObjective/' + objectiveId);
     }
 
     fac.isApproveJobDescription = function (jobDescriptionId) {
@@ -3799,6 +3893,10 @@ myApp.factory('HOBUdataServices', ['$http', 'serviceBasePath', function ($http, 
 
     fac.postPerformanceAppraisal = function (data) {
         return $http.post(serviceBasePath + '/api/Employees/JobObjectives/SavePerformanceAppraisal', data);
+    }
+
+    fac.allowToEdit = function (employeeId) {
+        return $http.post(serviceBasePath + '/api/Employees/JobObjectives/AllowToEditSelfAppraisal/'+ employeeId);
     }
 
     fac.isApproveJobDescriptionByHOBU = function (JobDescriptionId) {
