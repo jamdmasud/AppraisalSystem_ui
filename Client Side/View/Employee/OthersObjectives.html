@@ -76,10 +76,10 @@
                             <td ng-if="SelectCol.EmployeeName">{{objective.employeeName}}</td>
                             <td ng-if="SelectCol.Code">{{objective.objectiveId}}</td>
                             <td ng-if="SelectCol.Title">{{objective.title}}</td>
-                            <td ng-if="SelectCol.KPI">{{objective.kpi}}</td>
-                            <td ng-if="SelectCol.Target">{{objective.target}}</td>
+                            <td  style="white-space: pre-line !important;" ng-if="SelectCol.KPI">{{objective.kpi}}</td>
+                            <td  style="white-space: pre-line !important;" ng-if="SelectCol.Target">{{objective.target}}</td>
                             <td ng-if="SelectCol.Weight">{{objective.weight}}</td>
-                            <td ng-if="SelectCol.Note">{{objective.note}}</td>
+                            <td  style="white-space: pre-line !important;" ng-if="SelectCol.Note">{{objective.note}}</td>
                             <td ng-if="SelectCol.Status">
                                 <span ng-if="objective.isObjectiveApproved" class="label label-info label-mini">Have Read</span>
                                 <span ng-if="!objective.isObjectiveApproved" class="label label-danger label-mini">Pending</span>

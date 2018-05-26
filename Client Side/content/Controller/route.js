@@ -741,7 +741,7 @@ myApp.controller('jobObjectiveController', ['$scope', '$http', '$uibModal', 'Emp
                 $scope.$dismiss();
                 $route.reload();
             }, function (error) {
-                swal('Error', 'Something  went wrong. Please try again', 'error');
+                swal('Error', error.data.message, 'error');
                 $scope.init();
             })
         } else
@@ -1424,6 +1424,7 @@ myApp.controller('performanceController', ['$scope', '$uibModal', 'HOBUServices'
             singlePerformanceAppraisal.ObjectiveId = value.objectiveId;
             singlePerformanceAppraisal.Weight = value.weight;
             singlePerformanceAppraisal.PerformanceAppraisal = value.performanceAppraisal;
+            singlePerformanceAppraisal.performanceComment = value.performanceComment;
 
             listAppraisal.push(singlePerformanceAppraisal);
         })

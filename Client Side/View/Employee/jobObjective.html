@@ -55,13 +55,13 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="objective in Objectives|filter:{isObjectApprove:selectGroup.value}:strict">
-                        <td ng-if="selectCol.Code">{{objective.objectiveId}}</td>
-                        <td ng-if="selectCol.Title">{{objective.title}}</td>
-                        <td ng-if="selectCol.KPI">{{objective.kpi}}</td>
-                        <td ng-if="selectCol.Target">{{objective.target}}</td>
-                        <td ng-if="selectCol.Weight">{{objective.weight}}</td>
-                        <td ng-if="selectCol.Note">{{objective.note}}</td>
-                        <td ng-if="selectCol.Status">
+                        <td  ng-if="selectCol.Code">{{objective.objectiveId}}</td>
+                        <td  ng-if="selectCol.Title">{{objective.title}}</td>
+                        <td style="white-space: pre-line !important;" ng-if="selectCol.KPI">{{objective.kpi}}</td>
+                        <td style="white-space: pre-line !important;" ng-if="selectCol.Target">{{objective.target}}</td>
+                        <td  ng-if="selectCol.Weight">{{objective.weight}}</td>
+                        <td style="white-space: pre-line !important;" ng-if="selectCol.Note">{{objective.note}}</td>
+                        <td  ng-if="selectCol.Status">
                             <span ng-if="!objective.isObjectApprove" class="label label-danger label-mini">Pending</span>
                             <span ng-if="objective.isObjectApprove" class="label label-success label-mini">Approve</span>
                         </td>
