@@ -96,6 +96,43 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Angularjs Controller\Account Controller\AuthInterceptor.js" />
+    <Content Include="Angularjs Controller\Account Controller\loginController.js" />
+    <Content Include="Angularjs Controller\Account Controller\resetPasswordController.js" />
+    <Content Include="Angularjs Controller\Admin Controller\AppraisalInfoController.js" />
+    <Content Include="Angularjs Controller\Admin Controller\DepartmentSectionController.js" />
+    <Content Include="Angularjs Controller\Admin Controller\EmployeeController.js" />
+    <Content Include="Angularjs Controller\Admin Controller\FinalReportController.js" />
+    <Content Include="Angularjs Controller\Admin Controller\ObjectiveController.js" />
+    <Content Include="Angularjs Controller\Admin Controller\RemovedEmployeeController.js" />
+    <Content Include="Angularjs Controller\Admin Controller\SettingController.js" />
+    <Content Include="Angularjs Controller\Director Controller\MyEmployeeController.js" />
+    <Content Include="Angularjs Controller\Director Controller\ObjectiveController.js" />
+    <Content Include="Angularjs Controller\Director Controller\OrganogramController.js" />
+    <Content Include="Angularjs Controller\Director Controller\OtherObjectiveController.js" />
+    <Content Include="Angularjs Controller\Director Controller\PerformanceAppraisalController.js" />
+    <Content Include="Angularjs Controller\Employee Controller\JobDescriptionController.js" />
+    <Content Include="Angularjs Controller\Employee Controller\JobObjectiveController.js" />
+    <Content Include="Angularjs Controller\Employee Controller\SelfAppraisalController.js" />
+    <Content Include="Angularjs Controller\Index\DashboardController.js" />
+    <Content Include="Angularjs Controller\Index\HomeController.js" />
+    <Content Include="Angularjs Controller\Organogram\TotalEmployeeController.js" />
+    <Content Include="Angularjs Controller\Organogram\TotalOrganogramController.js" />
+    <Content Include="Angularjs Controller\Report\JobDescriptionController.js" />
+    <Content Include="Angularjs Controller\Report\ReportController.js" />
+    <Content Include="Angularjs Controller\route.js" />
+    <Content Include="AngularJs Service\DataServices\AdminDataService.js" />
+    <Content Include="AngularJs Service\DataServices\AdminDataSetting.js" />
+    <Content Include="AngularJs Service\DataServices\EmployeeDataService.js" />
+    <Content Include="AngularJs Service\DataServices\HobuDataService.js" />
+    <Content Include="AngularJs Service\DataServices\OtherDataService.js" />
+    <Content Include="AngularJs Service\Directive\MultilineFilter.js" />
+    <Content Include="AngularJs Service\JsonServices\AdminService.js" />
+    <Content Include="AngularJs Service\JsonServices\EmployeeService.js" />
+    <Content Include="AngularJs Service\JsonServices\HOBUService.js" />
+    <Content Include="AngularJs Service\ReportServices\PdfService.js" />
+    <Content Include="AngularJs Service\UtilityServices\BulkDataService.js" />
+    <Content Include="AngularJs Service\UtilityServices\CascadingService.js" />
+    <Content Include="AngularJs Service\UtilityServices\ErrorService.js" />
     <Content Include="assets\css\angular-datepicker.min.css" />
     <Content Include="assets\css\bootstrap-select.min.css" />
     <Content Include="assets\css\bootstrap-theme.css" />
@@ -315,10 +352,12 @@
     <Content Include="View\Super Admin Modal\UpdateDesignation.html" />
     <Content Include="View\Super Admin Modal\updateIncreament.html" />
     <Content Include="View\Super Admin Modal\UpdateSection.html" />
+    <Content Include="View\Super Admin\AppraisalInfo.html" />
     <Content Include="View\Super Admin\DeletedEmployeeList.html" />
     <Content Include="View\Super Admin\DepartmentSection.html" />
     <Content Include="View\Super Admin\EmployeeList.html" />
     <Content Include="View\Super Admin\FinalReport.html" />
+    <Content Include="View\Super Admin\JobDescriptionReport.html" />
     <Content Include="View\Super Admin\ObjectiveLists.html" />
     <Content Include="View\Super Admin\SelfAppraisalReport.html" />
     <Content Include="View\Super Admin\Setting.html" />
@@ -331,10 +370,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Angularjs Controller\Admin Controller\" />
-    <Folder Include="Angularjs Controller\Director Controller\" />
-    <Folder Include="Angularjs Controller\Employee Controller\" />
-    <Folder Include="Angularjs Controller\HOBU Controller\" />
     <Folder Include="HelperJSON\ForDirector\" />
   </ItemGroup>
   <PropertyGroup>

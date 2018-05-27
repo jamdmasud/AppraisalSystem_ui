@@ -96,6 +96,12 @@ myApp.config(['$routeProvider', function ($routeProvider) {
         controller: 'allDeletedEmployeeController',
         authorize: true
     })
+    
+    .when('/AppraisalInfo', {
+        templateUrl: 'View/Super Admin/AppraisalInfo.html',
+        controller: 'appraisalInfoController',
+        authorize: true
+    })
 
     /* Total Organogram */
     .when('/TotalOrganogram', {
@@ -112,6 +118,12 @@ myApp.config(['$routeProvider', function ($routeProvider) {
     .when('/SelfAppraisalReport', {
         templateUrl: 'View/Super Admin/SelfAppraisalReport.html',
         controller: 'reportController',
+        authorize: true
+    })
+    
+        .when('/JobDescriptionReport', {
+        templateUrl: 'View/Super Admin/JobDescriptionReport.html',
+            controller: 'jobDescriptionNotSubmitController',
         authorize: true
     })
 
